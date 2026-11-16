@@ -2,6 +2,10 @@
 
 **Measure 32 gene knockouts in a cancer cell model. Predict 195 more.**
 
+## [Open PROBE — live website](https://yatharth-kakkad.github.io/PROBE-BioPythons/)
+
+Use the app directly in your browser. No download, installation, or sign-in required.
+
 **Team:** Bio Pythons · Andy Pham & Yatharth Kakkad · Pine View School
 **Track:** AI + Health · Veritas AI International High School Hackathon 2026
 
@@ -36,7 +40,7 @@ Predicting many knockout effects from a few has prior work (Zhao et al. 2022; Ho
 5. **Error bands.** Sized on a separate development set (71 models, 70 donors).
 6. **Test.** The model, gene lists and test plan were committed before the held-out outcomes were read.
 
-Training used 692 cell models from 665 donors. Training code and the full experiment record are in [swingcheck/PROBE](https://github.com/swingcheck/PROBE).
+Training used 692 cell models from 665 donors.
 
 ## Results
 
@@ -73,9 +77,7 @@ Held-out test: **124 cell models from 120 new donors, 24,177 observed responses.
 1. Measure the 32-gene panel in a small arrayed knockout experiment and test whether those values work as inputs.
 2. Repeat the test on cell models from a source outside DepMap.
 
-## Run it
-
-**App:** open [`app/index.html`](app/index.html) in a browser. No install needed.
+## Optional Python tools
 
 **Python** (3.10+). Run from the repository root. Install Node.js to run browser-parity checks; pytest skips those checks when Node.js is absent:
 
@@ -117,5 +119,5 @@ Keep each `support.json` beside its `model.json`. Without the training ranges, i
 
 **Software**
 - This repository: Python and NumPy; pytest for tests.
-- The original training pipeline in [swingcheck/PROBE](https://github.com/swingcheck/PROBE) also uses SciPy, pandas and scikit-learn.
+- Training also used SciPy, pandas and scikit-learn.
 - JavaScript (no libraries) for the app; Node.js for verification.
