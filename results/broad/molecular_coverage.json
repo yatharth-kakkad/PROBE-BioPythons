@@ -1,0 +1,28 @@
+{
+  "sources": {
+    "rna": {
+      "present_models": 116,
+      "missing_models": [
+        "ACH-001063",
+        "ACH-001331",
+        "ACH-001606",
+        "ACH-002105",
+        "ACH-002109",
+        "ACH-002143",
+        "ACH-002280",
+        "ACH-002295"
+      ]
+    },
+    "damaging": {
+      "present_models": 124,
+      "missing_models": []
+    },
+    "hotspot": {
+      "present_models": 124,
+      "missing_models": []
+    }
+  },
+  "complete_models": 116,
+  "included_models": 124,
+  "policy": "Keep every frozen donor; training-only feature imputation."
+}

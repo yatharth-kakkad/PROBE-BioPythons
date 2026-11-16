@@ -1,0 +1,15 @@
+[project]
+name = "probe"
+version = "1.0.0"
+description = "Predict unmeasured gene-knockout responses in cancer cell models from a small measured panel."
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["probe"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

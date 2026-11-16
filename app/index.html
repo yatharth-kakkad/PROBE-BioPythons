@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Predict unmeasured gene-knockout responses from a small measured panel. Explore predictions and replay the held-out test locally.">
+  <title>PROBE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#top">Skip to workspace</a>
+<header class="masthead">
+  <div class="header-inner">
+    <a class="brand" href="index.html">PROBE</a>
+    <nav aria-label="Sections"><a href="#top">Predict</a><a href="#evidence">Validate</a></nav>
+  </div>
+</header>
+<main id="top" tabindex="-1">
+  <section class="intro">
+    <h1>Gene knockout responses</h1>
+    <p>Predict unmeasured knockout effects from a small panel of measurements.</p>
+  </section>
+  <section class="profile-panel" aria-label="Choose a cell profile">
+    <div class="profile-controls">
+      <label>Model<select id="scope"><option value="broad">Broad: 32 inputs, 195 responses</option><option value="compact">Compact: 16 inputs, 46 responses</option></select></label>
+      <label>Cell lineage<select id="tissue"></select></label>
+      <label>Held-out cell profile<select id="cell"></select></label>
+    </div>
+    <p id="profile-description" class="muted"></p>
+  </section>
+  <div id="response-overview" class="response-overview" aria-label="Prediction overview"></div>
+  <div class="workspace">
+    <aside class="inputs" aria-labelledby="inputs-heading">
+      <div class="section-title"><h2 id="inputs-heading">Measured inputs</h2><span id="available" class="tag"></span></div>
+      <div class="input-actions">
+        <button id="import" class="primary">Import CSV</button>
+        <input id="upload" type="file" accept=".csv,text/csv" hidden>
+        <button id="reset">Reset</button>
+      </div>
+      <details class="input-options">
+        <summary>Input options</summary>
+        <div class="tools"><button id="inputs-export">Export inputs</button><button id="blank-template">Blank template</button></div>
+        <p>Use DepMap Chronos effects. Each gene represents a separate knockout experiment. Clear a reading to leave it out.</p>
+        <p>Editing readings creates a what-if scenario and turns error bands off.</p>
+      </details>
+      <label class="budget-label">Measurements used<select id="budget"></select></label>
+      <div class="input-columns" aria-hidden="true"><span>Gene</span><span>Effect</span></div>
+      <div id="queries" class="query-list"></div>
+    </aside>
+    <section class="results" aria-labelledby="responses-heading">
+      <div class="section-title"><h2 id="responses-heading">Predicted responses</h2><button id="reveal">Reveal outcomes</button></div>
+      <p id="notice" class="notice" role="status" aria-live="polite"></p>
+      <div class="table-tools">
+        <label>Search gene<input id="search" type="search" placeholder="Gene name or Entrez ID"></label>
+        <label>Follow-up view<select id="decision"><option value="all">All predictions</option><option value="wider">Wider shortlist</option><option value="conservative">Conservative shortlist</option></select></label>
+        <button id="export">Export this view</button>
+      </div>
+      <div class="view-toolbar">
+        <fieldset class="view-switch">
+          <legend class="sr-only">Response display</legend>
+          <label><input type="radio" name="view" value="map" checked><span>Overview</span></label>
+          <label><input type="radio" name="view" value="table"><span>Table</span></label>
+        </fieldset>
+        <span id="calls" class="muted"></span>
+      </div>
+      <p id="count" class="sr-only"></p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Predicted response table">
+        <table>
+          <caption class="sr-only">Predicted gene effects, error bands and revealed outcomes</caption>
+          <thead><tr><th scope="col">#</th><th scope="col">Gene</th><th scope="col">Predicted effect</th><th scope="col">90% error band</th><th scope="col" id="outcome-heading">Outcome hidden</th></tr></thead>
+          <tbody id="ranking"></tbody>
+        </table>
+      </div>
+      <div class="map-view">
+        <div id="distribution" aria-label="Response distribution"></div>
+        <details class="map-details">
+          <summary>Explore response map</summary>
+          <p>Darker orange indicates stronger dependency. Underlines mark conservative candidates.</p>
+          <div id="atlas" class="response-atlas" aria-label="Predicted responses"></div>
+        </details>
+      </div>
+      <div id="detail" class="detail" aria-label="Selected gene"></div>
+      <details class="interpretation">
+        <summary>How to read these results</summary>
+        <p>More negative effects indicate stronger dependency. The wider shortlist uses a predicted effect below -0.5; the conservative shortlist requires the upper error band below -0.5.</p>
+        <p id="decision-evidence"></p>
+      </details>
+    </section>
+  </div>
+  <section id="evidence" class="validation-panel" aria-labelledby="validation-heading">
+    <div class="section-title"><h2 id="validation-heading">Held-out validation</h2><button id="validate" class="primary">Run validation</button></div>
+    <div id="benchmark-chart" class="benchmark-chart" aria-label="Relative prediction error"></div>
+    <div id="headline-evidence" class="evidence-strip" aria-label="Held-out test results"></div>
+    <div id="validation-result" role="status" aria-live="polite"></div>
+    <details>
+      <summary>Method and recorded results</summary>
+      <p id="evidence-description"></p>
+      <p>Replays every held-out profile against recorded outcomes and comparison methods, with equal weight per donor. All nine planned comparisons passed.</p>
+      <p id="evidence-links" class="evidence-links"></p>
+    </details>
+  </section>
+  <footer>
+    <p>This project is a prototype and is not medical advice.</p>
+    <div class="credits">
+      <p>Bio Pythons<br>Andy Pham &amp; Yatharth Kakkad, Pine View School</p>
+      <p>Data: DepMap 24Q2, Broad Institute, CC BY 4.0</p>
+      <a href="../README.md">Project</a>
+    </div>
+  </footer>
+</main>
+<script src="support.js"></script>
+<script src="compact-data.js"></script>
+<script src="broad-data.js"></script>
+<script src="probe.js"></script>
+<script src="evaluate.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
